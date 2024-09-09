@@ -1,9 +1,12 @@
 import React from 'react';
+import { Container, Title } from '@/shared/ui';
 
 const Home: React.FC = () => {
   return (
     <>
-      <h1>Home page</h1>
+      <Container className='mt-10'>
+        <Title text='Все пиццы' size='lg' className='font-extrabold' />
+      </Container>
     </>
   );
 };
