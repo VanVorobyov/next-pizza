@@ -18,7 +18,9 @@ const activeIndex = 0;
 
 export const Categories: React.FC<ICategoriesProps> = ({ className }) => {
   return (
-    <ul className={cn('flex gap-1 bg-gray-50 p-1 rounded-2xl', className)}>
+    <ul
+      className={cn('inline-flex gap-1 bg-gray-50 p-1 rounded-2xl', className)}
+    >
       {categories.map((categorie, index) => (
         <li key={index}>
           <a
