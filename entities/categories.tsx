@@ -31,9 +31,7 @@ export const Categories: React.FC<ICategoriesProps> = ({ className }) => {
                 'bg-white shadow-md shadow-gray-200 text-primary'
             )}
           >
-            <button className='flex items-center gap-1 font-bold h-11 px-5 rounded-xl'>
-              {categorie}
-            </button>
+            <button>{categorie}</button>
           </a>
         </li>
       ))}
