@@ -1,5 +1,4 @@
 import React from 'react';
-import classes from './SortPopup.module.sass';
 import { cn } from '@/shared/lib/utils';
 import { ArrowUpDown } from 'lucide-react';
 
@@ -17,7 +16,7 @@ export const SortPopup: React.FC<ISortPopupProps> = ({ className }) => {
     >
       <ArrowUpDown size={16} />
       <strong>Сортировка</strong>
-      <strong className='text-primary'>популярное</strong>
+      <strong className="text-primary">популярное</strong>
     </div>
   );
 };
