@@ -9,7 +9,7 @@ interface IFiltersProps {
 
 export const Filters: React.FC<IFiltersProps> = ({ className }) => {
   return (
-    <div className={cn('border border-green-900', className)}>
+    <div className={cn('', className)}>
       <Title text="Фильтрация" size="sm" className="mb-5 font-bold" />
 
       <div className="flex flex-col gap-4">
