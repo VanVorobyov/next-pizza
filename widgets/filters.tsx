@@ -1,7 +1,7 @@
 import React from 'react';
 import { cn } from '@/shared/lib/utils';
-import { Checkbox, Title, Input } from '@/shared';
-import { FilterCheckbox } from '@/entities';
+import { Title, Input } from '@/shared';
+import { FilterCheckbox, RangeSlider } from '@/entities';
 
 interface IFiltersProps {
   className?: string;
@@ -35,6 +35,8 @@ export const Filters: React.FC<IFiltersProps> = ({ className }) => {
             defaultValue={500}
           />
         </div>
+
+        <RangeSlider min={0} max={2000} step={10} value={[0, 2000]} />
       </div>
     </div>
   );
