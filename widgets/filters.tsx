@@ -69,7 +69,7 @@ export const Filters: React.FC<IFiltersProps> = ({ className }) => {
             value: '6',
           },
         ]}
-        limit={6}
+        limit={2}
         defaultItems={[
           {
             text: 'Сырный соус',

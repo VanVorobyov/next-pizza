@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Title } from '@/shared/ui';
 import { TopBar } from '@/widgets';
 import { Filters } from '@/widgets/filters';
+import { ProductCard } from '@/entities/product-card';
 
 const Home: React.FC = () => {
   return (
@@ -12,7 +13,7 @@ const Home: React.FC = () => {
       <TopBar />
 
       <Container className="mt-10 pb-14">
-        <div className="flex gap=[60px]">
+        <div className="flex gap-[60px]">
           {/* left side of content (filters) */}
           <div className="w-[250px]">
             <Filters />
@@ -20,7 +21,23 @@ const Home: React.FC = () => {
 
           {/* right side of content (pizzas) */}
           <div className="flex-1">
-            <div className="flex flex-col gap-16">pizza list</div>
+            <div className="flex flex-col gap-16">
+              <ProductCard
+                title="Пицца с ананасами"
+                imageUrl=""
+                id=""
+                ingredients={[
+                  'ананас',
+                  'масло',
+                  'мука',
+                  'соль',
+                  'перец',
+                  'огурец',
+                  'бекон',
+                ]}
+                price={900}
+              />
+            </div>
           </div>
         </div>
       </Container>
