@@ -3,6 +3,7 @@ import { Container, Title } from '@/shared/ui';
 import { TopBar } from '@/widgets';
 import { Filters } from '@/widgets/filters';
 import { ProductCard } from '@/entities/product-card';
+import { ProductsGroupList } from '@/entities/products-group-list';
 
 const Home: React.FC = () => {
   return (
@@ -22,21 +23,7 @@ const Home: React.FC = () => {
           {/* right side of content (pizzas) */}
           <div className="flex-1">
             <div className="flex flex-col gap-16">
-              <ProductCard
-                title="Пицца с ананасами"
-                imageUrl=""
-                id=""
-                ingredients={[
-                  'ананас',
-                  'масло',
-                  'мука',
-                  'соль',
-                  'перец',
-                  'огурец',
-                  'бекон',
-                ]}
-                price={900}
-              />
+              <ProductsGroupList title={''} items={[]} categoryId={0} />
             </div>
           </div>
         </div>
