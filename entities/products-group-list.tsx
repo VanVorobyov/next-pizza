@@ -13,13 +13,12 @@ interface Props {
   listClassName?: string;
 }
 
-interface IProduct {
+export interface IProduct {
   id: string;
   name: string;
   imageUrl: string;
-  items: {
-    price: number;
-  };
+  price: number;
+  ingredients: string[];
 }
 
 export const ProductsGroupList: React.FC<Props> = ({
@@ -28,7 +27,7 @@ export const ProductsGroupList: React.FC<Props> = ({
   listClassName,
   className,
 }) => {
-  const { price } = items[0].items;
+  const { price } = items[0] ?? { price: 0 };
   return (
     <div className={className}>
       <Title text={title} size="lg" className="font-extrabold mb-5" />
@@ -39,7 +38,7 @@ export const ProductsGroupList: React.FC<Props> = ({
             id={product.id}
             title={product.name}
             imageUrl={product.imageUrl}
-            price={price as number}
+            price={price}
             ingredients={[]}
           />
         ))}
