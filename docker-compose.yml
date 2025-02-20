@@ -1,0 +1,12 @@
+version: '3'
+services:
+  nextjs:
+    container_name: next-pizza-nextjs
+    build: ./
+    ports:
+      - '3010:3010'
+    restart: always
+    volumes:
+      - ./:/app/:rw
+      - /app/node_modules
+      - /app/.next

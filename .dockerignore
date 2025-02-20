@@ -1,0 +1,13 @@
+.git
+__mocks__
+.helm
+.husky
+.next
+CHANGELOG
+coverage
+nginx
+node_modules
+tools
+scripts
+*Dockerfile*
+*docker-compose*
