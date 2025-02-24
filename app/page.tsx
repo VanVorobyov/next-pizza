@@ -11,7 +11,7 @@ const mockProductData: IProduct[] = [
     name: 'Пицца "Додо"',
     imageUrl:
       'https://media.dodostatic.net/image/r:584x584/01939b6f01a676059b576eaab98abb2d.avif',
-    price: 499,
+    items: [{ price: 499 }],
     ingredients: ['Тесто', 'Сыр моцарелла', 'Пепперони', 'Томатный соус'],
   },
   {
@@ -19,7 +19,7 @@ const mockProductData: IProduct[] = [
     name: 'Пицца "Маргарита"',
     imageUrl:
       'https://media.dodostatic.net/image/r:584x584/11ee7d6105ef6690b86fbde6150b5b0c.avif',
-    price: 399,
+    items: [{ price: 399 }],
     ingredients: ['Тесто', 'Сыр моцарелла', 'Томатный соус', 'Базилик'],
   },
   {
@@ -27,7 +27,7 @@ const mockProductData: IProduct[] = [
     name: 'Пицца "Цезарь"',
     imageUrl:
       'https://media.dodostatic.net/image/r:584x584/11ee7d613b84a5dbb4c1c50fb9583b7e.avif',
-    price: 649,
+    items: [{ price: 649 }],
     ingredients: [
       'Тесто',
       'Курица',
@@ -41,7 +41,7 @@ const mockProductData: IProduct[] = [
     name: 'Пицца "Гавайская"',
     imageUrl:
       'https://media.dodostatic.net/image/r:584x584/11ee7d617e9339cfb185921a343ad8fd.avif',
-    price: 549,
+    items: [{ price: 549 }],
     ingredients: [
       'Тесто',
       'Сыр моцарелла',
@@ -55,7 +55,7 @@ const mockProductData: IProduct[] = [
     name: 'Пицца "Мексиканская"',
     imageUrl:
       'https://media.dodostatic.net/image/r:584x584/11ee7d61706d472f9a5d71eb94149304.avif',
-    price: 599,
+    items: [{ price: 599 }],
     ingredients: [
       'Тесто',
       'Сыр моцарелла',
@@ -84,11 +84,12 @@ const Home: React.FC = () => {
           {/* right side of content (pizzas) */}
           <div className="flex-1">
             <div className="flex flex-col gap-16">
-              <ProductsGroupList
-                title={''}
+              {/* <ProductsGroupList
+                title="Все пиццы"
                 items={mockProductData}
-                categoryId={0}
-              />
+                categoryId={1}
+                listClassName="gap-16"
+              /> */}
             </div>
           </div>
         </div>

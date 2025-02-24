@@ -17,17 +17,18 @@ export interface IProduct {
   id: string;
   name: string;
   imageUrl: string;
-  price: number;
+  items: { price: number }[];
   ingredients: string[];
 }
 
 export const ProductsGroupList: React.FC<Props> = ({
   title,
   items,
+  categoryId,
   listClassName,
   className,
 }) => {
-  const { price } = items[0] ?? { price: 0 };
+  console.log('🤓 👉 title ====>', title);
   return (
     <div className={className}>
       <Title text={title} size="lg" className="font-extrabold mb-5" />
@@ -38,7 +39,7 @@ export const ProductsGroupList: React.FC<Props> = ({
             id={product.id}
             title={product.name}
             imageUrl={product.imageUrl}
-            price={price}
+            price={product.items[0].price}
             ingredients={[]}
           />
         ))}
