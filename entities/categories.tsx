@@ -27,7 +27,7 @@ export const Categories: React.FC<ICategoriesProps> = ({ className }) => {
       {categories.map(({ name, id }) => (
         <li key={id}>
           <a
-            href="#"
+            href={`#${name}`}
             className={cn(
               'flex items-center gap-1 font-bold h-11 px-5 rounded-xl',
               id === categoryActiveId &&
