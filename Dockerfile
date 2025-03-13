@@ -8,4 +8,4 @@ RUN yarn install && yarn build
 
 EXPOSE 3010
 
-CMD ["yarn", "start", "-p", "3010", "-H", "0.0.0.0"]
+CMD ["yarn", "dev", "-p", "3010", "-H", "0.0.0.0"]

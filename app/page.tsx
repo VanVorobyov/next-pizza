@@ -84,12 +84,12 @@ const Home: React.FC = () => {
           {/* right side of content (pizzas) */}
           <div className="flex-1">
             <div className="flex flex-col gap-16">
-              {/* <ProductsGroupList
-                title="Все пиццы"
+              <ProductsGroupList
+                title="Пиццы"
                 items={mockProductData}
                 categoryId={1}
                 listClassName="gap-16"
-              /> */}
+              />
             </div>
           </div>
         </div>
