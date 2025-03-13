@@ -2,7 +2,6 @@ import React from 'react';
 import { Container, Title } from '@/shared/ui';
 import { TopBar } from '@/widgets';
 import { Filters } from '@/widgets/filters';
-import { ProductCard } from '@/entities/product-card';
 import { IProduct, ProductsGroupList } from '@/entities/products-group-list';
 
 const mockProductData: IProduct[] = [
@@ -88,6 +87,12 @@ const Home: React.FC = () => {
                 title="Пиццы"
                 items={mockProductData}
                 categoryId={1}
+                listClassName="gap-16"
+              />
+              <ProductsGroupList
+                title="Комбо"
+                items={mockProductData}
+                categoryId={2}
                 listClassName="gap-16"
               />
             </div>
