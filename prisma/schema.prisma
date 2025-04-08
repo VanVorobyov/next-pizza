@@ -7,7 +7,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
-enum pizzaType {
+enum UserRole {
   USER
   ADMIN
 }
@@ -19,14 +19,16 @@ enum OrderStatus {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  fullName  String?
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  cart      Cart?
-  orders    Order[]
+  id               Int               @id @default(autoincrement())
+  fullName         String?
+  email            String            @unique
+  password         String
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  role             UserRole
+  cart             Cart?
+  orders           Order[]
+  verificationCode VerificationCode?
 }
 
 model Category {
@@ -99,7 +101,7 @@ model CartItem {
 model Order {
   id          Int         @id @default(autoincrement())
   user        User?       @relation(fields: [userId], references: [id])
-  userId      Int?        @unique
+  userId      Int?
   token       String?
   totalAmount Int
   status      OrderStatus
@@ -113,4 +115,12 @@ model Order {
   comment     String?
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
+}
+
+model VerificationCode {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int      @unique
+  code      String
+  createdAt DateTime @default(now())
 }
