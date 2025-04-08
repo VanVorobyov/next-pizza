@@ -19,6 +19,7 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  cart      Cart?
 }
 
 model Category {
@@ -27,34 +28,61 @@ model Category {
   products Product[]
 }
 
+// Товар
 model Product {
-  id           Int           @id @default(autoincrement())
-  name         String
-  imageURL     String
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  category     Category      @relation(fields: [categoryId], references: [id])
-  categoryId   Int
-  ingridients  Ingredient[]
-  ingridientId Int
-  items        ProductItem[]
+  id          Int           @id @default(autoincrement())
+  name        String
+  imageURL    String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  category    Category      @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+  ingredients Ingredient[]
+  items       ProductItem[]
 }
 
+// Варианты товары
 model ProductItem {
-  id        Int     @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   price     Int
   size      Int?
   pizzaType Int
-  product   Product @relation(fields: [productId], references: [id])
+  product   Product    @relation(fields: [productId], references: [id])
   productId Int
+  cartItems CartItem[]
 }
 
 model Ingredient {
-  id        Int       @id @default(autoincrement())
-  name      String
-  price     Int
-  ImageURL  String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  products  Product[]
+  id         Int        @id @default(autoincrement())
+  name       String
+  price      Int
+  imageURL   String
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  products   Product[]
+  cartItems  CartItem[]
+  cartItemId Int?
+}
+
+model Cart {
+  id          Int        @id @default(autoincrement())
+  // для корзины авторизованных пользователей
+  user        User?      @relation(fields: [userId], references: [id])
+  userId      Int?       @unique
+  // для корзины неавторизованных пользователей добавляем token
+  token       String?
+  totalAmount Int        @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  items       CartItem[]
+}
+
+model CartItem {
+  id            Int          @id @default(autoincrement())
+  cart          Cart         @relation(fields: [cartId], references: [id])
+  cartId        Int
+  productItem   ProductItem  @relation(fields: [productItemId], references: [id])
+  productItemId Int
+  ingredients   Ingredient[]
+  quantity      Int          @default(1)
 }
