@@ -25,10 +25,13 @@ model User {
   password         String
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
-  role             UserRole
+  role             UserRole          @default(USER)
   cart             Cart?
   orders           Order[]
   verificationCode VerificationCode?
+  // для регистрации через OAUTH социальных сетей 
+  provider         String?
+  providerId       String?
 }
 
 model Category {
