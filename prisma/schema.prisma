@@ -12,6 +12,12 @@ enum pizzaType {
   ADMIN
 }
 
+enum OrderStatus {
+  PENDING
+  SUCCEEDED
+  CANCELED
+}
+
 model User {
   id        Int      @id @default(autoincrement())
   fullName  String?
@@ -20,6 +26,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   cart      Cart?
+  orders    Order[]
 }
 
 model Category {
@@ -85,4 +92,25 @@ model CartItem {
   productItemId Int
   ingredients   Ingredient[]
   quantity      Int          @default(1)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  user        User?       @relation(fields: [userId], references: [id])
+  userId      Int?        @unique
+  token       String?
+  totalAmount Int
+  status      OrderStatus
+  paymentId   String?
+  items       Json
+  // для оформления заказа на любое имя адрес и емейл
+  fullName    String
+  email       String
+  phone       String
+  address     String
+  comment     String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 }
