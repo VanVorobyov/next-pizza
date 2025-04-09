@@ -126,4 +126,7 @@ model VerificationCode {
   userId    Int      @unique
   code      String
   createdAt DateTime @default(now())
+
+  // проверяет на уникальность и код и юзера
+  @@unique([userId, code])
 }
