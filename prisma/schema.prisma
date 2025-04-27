@@ -29,6 +29,7 @@ model User {
   cart             Cart?
   orders           Order[]
   verificationCode VerificationCode?
+  verified         DateTime
   // для регистрации через OAUTH социальных сетей 
   provider         String?
   providerId       String?
