@@ -22,15 +22,15 @@ const up = async () => {
       ],
     });
   } catch (error) {
-    console.error('❌ Error in up:', error);
+    console.error('❌ Error in up function:', error);
   }
 };
 
 const down = async () => {
   try {
-    await console.log('down');
+    await prisma.$executeRaw`TRUNCATE TABLE "User" RESTART IDENTITY CASCADE`;
   } catch (error) {
-    console.error('❌ Error in down:', error);
+    console.error('❌ Error in down function:', error);
   }
 };
 
@@ -38,7 +38,17 @@ const main = async () => {
   try {
     await down();
     await up();
-  } catch (e) {
-    console.error('❌ Error in main:', e);
+  } catch (error) {
+    console.error('❌ Error in main function:', error);
   }
 };
+
+main()
+  .then(async () => {
+    await prisma.$disconnect();
+  })
+  .catch(async (error) => {
+    console.error('❌ Error in promise of main function:', error);
+    await prisma.$disconnect();
+    process.exit(1);
+  });

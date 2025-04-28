@@ -58,6 +58,7 @@ export async function POST(request: NextRequest) {
         email: body.email.toLowerCase(),
         password: hashedPassword,
         fullName: body.fullName.trim(),
+        verified: '',
       },
     });
 
