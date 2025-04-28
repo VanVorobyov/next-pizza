@@ -1,3 +1,4 @@
+import { categories } from './constants';
 import { prisma } from './prisma-client';
 import { hashSync } from 'bcrypt';
 
@@ -20,6 +21,10 @@ const up = async () => {
           role: 'ADMIN',
         },
       ],
+    });
+
+    await prisma.category.createMany({
+      data: categories,
     });
   } catch (error) {
     console.error('❌ Error in up function:', error);
