@@ -1,4 +1,4 @@
-import { _ingredients, categories } from './constants';
+import { _ingredients, categories, products } from './constants';
 import { prisma } from './prisma-client';
 import { hashSync } from 'bcrypt';
 
@@ -29,6 +29,10 @@ const up = async () => {
 
     await prisma.ingredient.createMany({
       data: _ingredients,
+    });
+
+    await prisma.product.createMany({
+      data: products,
     });
   } catch (error) {
     console.error('❌ Error in up function:', error);
