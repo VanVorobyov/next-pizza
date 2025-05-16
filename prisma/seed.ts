@@ -156,6 +156,32 @@ const up = async () => {
         // Остальные продукты
       ],
     });
+
+    await prisma.cart.createMany({
+      data: [
+        {
+          userId: 1,
+          totalAmount: 0,
+          token: '11111',
+        },
+        {
+          userId: 2,
+          totalAmount: 0,
+          token: '222222',
+        },
+      ],
+    });
+
+    await prisma.cartItem.create({
+      data: {
+        productItemId: 1,
+        cartId: 1,
+        quantity: 2,
+        ingredients: {
+          connect: [{ id: 1 }, { id: 2 }, { id: 3 }],
+        },
+      },
+    });
   } catch (error) {
     console.error('❌ Error in up function:', error);
   }
@@ -168,6 +194,8 @@ const down = async () => {
     await prisma.$executeRaw`TRUNCATE TABLE "Product" RESTART IDENTITY CASCADE`;
     await prisma.$executeRaw`TRUNCATE TABLE "ProductItem" RESTART IDENTITY CASCADE`;
     await prisma.$executeRaw`TRUNCATE TABLE "Ingredient" RESTART IDENTITY CASCADE`;
+    await prisma.$executeRaw`TRUNCATE TABLE "Cart" RESTART IDENTITY CASCADE`;
+    await prisma.$executeRaw`TRUNCATE TABLE "CartItem" RESTART IDENTITY CASCADE`;
   } catch (error) {
     console.error('❌ Error in down function:', error);
   }
