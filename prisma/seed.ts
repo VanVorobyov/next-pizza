@@ -1,8 +1,10 @@
-import { randomNumber } from '@/shared/lib/utils';
 import { _ingredients, categories, products } from './constants';
 import { prisma } from './prisma-client';
 import { hashSync } from 'bcrypt';
-import { Prisma } from '@prisma/client';
+
+export const randomNumber = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min) * 10 + min * 10) / 10;
+};
 
 const up = async () => {
   try {
@@ -162,6 +164,10 @@ const up = async () => {
 const down = async () => {
   try {
     await prisma.$executeRaw`TRUNCATE TABLE "User" RESTART IDENTITY CASCADE`;
+    await prisma.$executeRaw`TRUNCATE TABLE "Category" RESTART IDENTITY CASCADE`;
+    await prisma.$executeRaw`TRUNCATE TABLE "Product" RESTART IDENTITY CASCADE`;
+    await prisma.$executeRaw`TRUNCATE TABLE "ProductItem" RESTART IDENTITY CASCADE`;
+    await prisma.$executeRaw`TRUNCATE TABLE "Ingredient" RESTART IDENTITY CASCADE`;
   } catch (error) {
     console.error('❌ Error in down function:', error);
   }
