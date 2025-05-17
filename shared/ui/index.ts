@@ -10,3 +10,4 @@ export * from './select';
 export * from './skeleton';
 export * from './slider';
 export * from './title';
+export * from './search-input';
