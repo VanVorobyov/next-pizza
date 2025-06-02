@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useDeferredValue, useRef, useState } from 'react';
 import { cn } from '../lib/utils';
 import { Search } from 'lucide-react';
 import { useClickOutside } from '../hooks';
 import Link from 'next/link';
 import { Api } from '../services/api-client';
 import { Product } from '@prisma/client';
+import { useDebounce } from '../hooks/useDebounce';
 
 interface ISearchInputProps {
   className?: string;
@@ -18,17 +19,16 @@ export const SearchInput: React.FC<ISearchInputProps> = React.memo(
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [focused, setFocused] = useState<boolean>(false);
     const [products, setProducts] = useState<Product[]>([]);
+    const debouncedQuery = useDebounce(searchQuery, 100);
+    const deferredQuery = useDeferredValue(debouncedQuery);
+
+    useEffect(() => {
+      Api.products.search(deferredQuery).then(setProducts);
+    }, [deferredQuery]);
 
     useClickOutside(ref, () => {
       setFocused(false);
     });
-
-    useEffect(() => {
-      Api.products.search(searchQuery).then((data) => {
-        setProducts(data);
-      });
-    }, [searchQuery]);
-
     return (
       <>
         {focused && (
@@ -60,12 +60,12 @@ export const SearchInput: React.FC<ISearchInputProps> = React.memo(
             {products.map((product) => (
               <Link
                 className="flex items-center gap-3 w-full px-3 py-2 hover:bg-primary/10"
-                href="/"
+                href={`/product/${product.id}`}
               >
                 <img
                   className="rounded-sm h-8 w-8"
                   src={product.imageURL}
-                  alt="пицца"
+                  alt={product.name}
                 />
 
                 <span>{product.name}</span>
