@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { cn } from '../lib/utils';
 import { Search } from 'lucide-react';
 import { useClickOutside } from '../hooks';
 import Link from 'next/link';
+import { Api } from '../services/api-client';
 
 interface ISearchInputProps {
   className?: string;
@@ -13,11 +14,16 @@ interface ISearchInputProps {
 export const SearchInput: React.FC<ISearchInputProps> = React.memo(
   ({ className }) => {
     const ref = useRef<HTMLDivElement>(null);
+    const [searchQuery, setSearchQuery] = useState<string>('');
     const [focused, setFocused] = useState<boolean>(false);
 
     useClickOutside(ref, () => {
       setFocused(false);
     });
+
+    useEffect(() => {
+      Api.products.search(searchQuery);
+    }, [searchQuery]);
 
     return (
       <>
@@ -38,6 +44,8 @@ export const SearchInput: React.FC<ISearchInputProps> = React.memo(
             type="text"
             placeholder="Найти пиццу..."
             onFocus={() => setFocused(true)}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           ></input>
           <div
             className={cn(
