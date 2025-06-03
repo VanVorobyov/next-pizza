@@ -29,6 +29,11 @@ export const SearchInput: React.FC<ISearchInputProps> = React.memo(
     useClickOutside(ref, () => {
       setFocused(false);
     });
+
+    const handleClickItem = () => {
+      setFocused(false);
+      setSearchQuery('');
+    };
     return (
       <>
         {focused && (
@@ -63,6 +68,7 @@ export const SearchInput: React.FC<ISearchInputProps> = React.memo(
                 <Link
                   className="flex items-center gap-3 w-full px-3 py-2 hover:bg-primary/10"
                   href={`/product/${product.id}`}
+                  onClick={handleClickItem}
                 >
                   <img
                     className="rounded-sm h-8 w-8"
