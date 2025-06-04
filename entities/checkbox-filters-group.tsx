@@ -42,7 +42,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
   if (loading) {
     return (
       <div className={className}>
-        ∑<p className="font-bold mb-3">{title}</p>
+        <p className="font-bold mb-3">{title}</p>
         {...Array(limit)
           .fill(0)
           .map((_, index) => (

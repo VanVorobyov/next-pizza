@@ -12,7 +12,7 @@ interface IFiltersProps {
 }
 
 export const Filters: React.FC<IFiltersProps> = ({ className }) => {
-  const { ingredients } = useFilterIngredients();
+  const { ingredients, loading } = useFilterIngredients();
   const items = ingredients.map((item) => ({
     text: item.name,
     value: String(item.id),
@@ -55,6 +55,7 @@ export const Filters: React.FC<IFiltersProps> = ({ className }) => {
         items={items}
         limit={6}
         defaultItems={items.slice(0, 6)}
+        loading={loading}
       />
     </div>
   );
