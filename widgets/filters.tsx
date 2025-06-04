@@ -1,14 +1,23 @@
+'use client';
+
 import React from 'react';
 import { cn } from '@/shared/lib/utils';
 import { Title, Input } from '@/shared';
 import { FilterCheckbox, RangeSlider } from '@/entities';
 import { CheckboxFiltersGroup } from '@/entities/checkbox-filters-group';
+import { useFilterIngredients } from '@/shared/hooks';
 
 interface IFiltersProps {
   className?: string;
 }
 
 export const Filters: React.FC<IFiltersProps> = ({ className }) => {
+  const { ingredients } = useFilterIngredients();
+  const items = ingredients.map((item) => ({
+    text: item.name,
+    value: String(item.id),
+  }));
+
   return (
     <div className={cn('', className)}>
       <Title text="Фильтрация" size="sm" className="mb-5 font-bold" />
@@ -43,59 +52,9 @@ export const Filters: React.FC<IFiltersProps> = ({ className }) => {
       <CheckboxFiltersGroup
         title={'Ингредиенты'}
         className="mt-5"
-        items={[
-          {
-            text: 'Сырный соус',
-            value: '1',
-          },
-          {
-            text: 'Моцарелла',
-            value: '2',
-          },
-          {
-            text: 'Чеснок',
-            value: '3',
-          },
-          {
-            text: 'Соленые огурчики',
-            value: '4',
-          },
-          {
-            text: 'Красный лук',
-            value: '5',
-          },
-          {
-            text: 'Томаты',
-            value: '6',
-          },
-        ]}
-        limit={2}
-        defaultItems={[
-          {
-            text: 'Сырный соус',
-            value: '1',
-          },
-          {
-            text: 'Моцарелла',
-            value: '2',
-          },
-          {
-            text: 'Чеснок',
-            value: '3',
-          },
-          {
-            text: 'Соленые огурчики',
-            value: '4',
-          },
-          {
-            text: 'Красный лук',
-            value: '5',
-          },
-          {
-            text: 'Томаты',
-            value: '6',
-          },
-        ]}
+        items={items}
+        limit={6}
+        defaultItems={items.slice(0, 6)}
       />
     </div>
   );
