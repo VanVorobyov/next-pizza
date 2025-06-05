@@ -1,6 +1,7 @@
 import { Ingredient } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { Api } from '../services/api-client';
+import { useSet } from './useSet';
 
 interface IUseFilterIngredientsProps {
   ingredients: Ingredient[];
@@ -10,6 +11,8 @@ interface IUseFilterIngredientsProps {
 export const useFilterIngredients = (): IUseFilterIngredientsProps => {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [loading, setLoading] = useState(true);
+  const [set, { toggle }] = useSet(new Set<string>([]));
+
   useEffect(() => {
     async function fetchIngredients() {
       try {
