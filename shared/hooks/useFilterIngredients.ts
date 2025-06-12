@@ -6,12 +6,14 @@ import { useSet } from './useSet';
 interface IUseFilterIngredientsProps {
   ingredients: Ingredient[];
   loading: boolean;
+  selectedIds: Set<string>;
+  toggle: (id: string) => void;
 }
 
 export const useFilterIngredients = (): IUseFilterIngredientsProps => {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [loading, setLoading] = useState(true);
-  const [set, { toggle }] = useSet(new Set<string>([]));
+  const [selectedIds, { toggle }] = useSet(new Set<string>([]));
 
   useEffect(() => {
     async function fetchIngredients() {
@@ -31,5 +33,7 @@ export const useFilterIngredients = (): IUseFilterIngredientsProps => {
   return {
     ingredients,
     loading,
+    selectedIds,
+    toggle,
   };
 };
