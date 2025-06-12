@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { cn } from '@/shared/lib/utils';
 import { Title, Input } from '@/shared';
 import { FilterCheckbox, RangeSlider } from '@/entities';
@@ -11,8 +11,17 @@ interface IFiltersProps {
   className?: string;
 }
 
+interface IPriceRange {
+  priceFrom: number;
+  priceTo: number;
+}
+
 export const Filters: React.FC<IFiltersProps> = ({ className }) => {
   const { ingredients, loading, selectedIds, toggle } = useFilterIngredients();
+  const [priceRange, setPriceRange] = useState<IPriceRange>({
+    priceFrom: 0,
+    priceTo: 2000,
+  });
   const items = ingredients.map((item) => ({
     text: item.name,
     value: String(item.id),
@@ -35,18 +44,38 @@ export const Filters: React.FC<IFiltersProps> = ({ className }) => {
             placeholder="от"
             min={0}
             max={2000}
-            defaultValue={0}
+            value={String(priceRange.priceFrom)}
+            onChange={(e) =>
+              setPriceRange({
+                ...priceRange,
+                priceFrom: Number(e.target.value),
+              })
+            }
           />
           <Input
             placeholder="2000"
             type="number"
             min={100}
             max={2000}
-            defaultValue={500}
+            value={String(priceRange.priceTo)}
+            onChange={(e) =>
+              setPriceRange({
+                ...priceRange,
+                priceTo: Number(e.target.value),
+              })
+            }
           />
         </div>
 
-        <RangeSlider min={0} max={2000} step={10} value={[0, 2000]} />
+        <RangeSlider
+          min={0}
+          max={2000}
+          step={10}
+          value={[priceRange.priceFrom, priceRange.priceTo]}
+          onValueChange={([priceFrom, priceTo]) =>
+            setPriceRange({ priceFrom, priceTo })
+          }
+        />
       </div>
 
       <CheckboxFiltersGroup
