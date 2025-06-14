@@ -3,9 +3,10 @@
 import React, { useState } from 'react';
 import { cn } from '@/shared/lib/utils';
 import { Title, Input } from '@/shared';
-import { FilterCheckbox, RangeSlider } from '@/entities';
+import { RangeSlider } from '@/entities';
 import { CheckboxFiltersGroup } from '@/entities/checkbox-filters-group';
-import { useFilterIngredients } from '@/shared/hooks';
+import { useIngredients } from '@/shared/hooks/useIngredients';
+import { useFilters } from '@/shared/hooks';
 
 interface IFiltersProps {
   className?: string;
@@ -17,7 +18,9 @@ interface IPriceRange {
 }
 
 export const Filters: React.FC<IFiltersProps> = ({ className }) => {
-  const { ingredients, loading, selectedIds, toggle } = useFilterIngredients();
+  const { ingredients, loading } = useIngredients();
+  const filters = useFilters();
+
   const [priceRange, setPriceRange] = useState<IPriceRange>({
     priceFrom: 0,
     priceTo: 2000,
@@ -31,10 +34,31 @@ export const Filters: React.FC<IFiltersProps> = ({ className }) => {
     <div className={cn('', className)}>
       <Title text="Фильтрация" size="sm" className="mb-5 font-bold" />
 
-      <div className="flex flex-col gap-4">
-        <FilterCheckbox text="Можно собирать" value="1" />
-        <FilterCheckbox text="Новинки" value="2" />
-      </div>
+      {/* Верхние чекбоксы */}
+      <CheckboxFiltersGroup
+        title="Тип теста"
+        name="pizzaTypes"
+        className="mb-5"
+        onClickCheckbox={filters.setPizzaTypes}
+        selected={filters.pizzaTypes}
+        items={[
+          { text: 'Тонкое', value: '1' },
+          { text: 'Традиционное', value: '2' },
+        ]}
+      />
+
+      <CheckboxFiltersGroup
+        title="Размеры"
+        name="sizes"
+        className="mb-5"
+        onClickCheckbox={filters.setSizes}
+        selected={filters.sizes}
+        items={[
+          { text: '20 см', value: '20' },
+          { text: '30 см', value: '30' },
+          { text: '40 см', value: '40' },
+        ]}
+      />
 
       <div className="mt-5 border-y border-y-neutral-100 py-6 pb-7">
         <p className="font-bold mb-3">Цена от и до: </p>
@@ -86,8 +110,8 @@ export const Filters: React.FC<IFiltersProps> = ({ className }) => {
         limit={6}
         defaultItems={items.slice(0, 6)}
         loading={loading}
-        onClickCheckbox={(value) => toggle(value)}
-        selected={selectedIds}
+        onClickCheckbox={(value) => filters.setSelectedIngredients(value)}
+        selected={filters.selectedIngredients}
       />
     </div>
   );
