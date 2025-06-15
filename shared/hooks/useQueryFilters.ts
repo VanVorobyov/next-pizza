@@ -23,8 +23,6 @@ export const useQueryFilters = (filters: Filters) => {
       router.push(`?${query}`, {
         scroll: false, // нужно для корректного обновления списка пицц (чтобы не прокручивалось вниз)
       });
-
-      console.log(filters, 999);
     }
 
     isMounted.current = true;

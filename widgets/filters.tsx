@@ -6,7 +6,7 @@ import { Title, Input } from '@/shared';
 import { RangeSlider } from '@/entities';
 import { CheckboxFiltersGroup } from '@/entities/checkbox-filters-group';
 import { useIngredients } from '@/shared/hooks/useIngredients';
-import { useFilters } from '@/shared/hooks';
+import { useFilters, useQueryFilters } from '@/shared/hooks';
 
 interface IFiltersProps {
   className?: string;
@@ -20,6 +20,8 @@ export const Filters: React.FC<IFiltersProps> = ({ className }) => {
     text: item.name,
     value: String(item.id),
   }));
+
+  useQueryFilters(filters);
 
   const updatePrices = (prices: number[]) => {
     filters.setPrices('priceFrom', prices[0]);
