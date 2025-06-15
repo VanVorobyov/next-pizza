@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { cn } from '@/shared/lib/utils';
 import { Title, Input } from '@/shared';
 import { RangeSlider } from '@/entities';
@@ -10,11 +10,6 @@ import { useFilters } from '@/shared/hooks';
 
 interface IFiltersProps {
   className?: string;
-}
-
-interface IPriceRange {
-  priceFrom: number;
-  priceTo: number;
 }
 
 export const Filters: React.FC<IFiltersProps> = ({ className }) => {
