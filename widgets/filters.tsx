@@ -21,14 +21,16 @@ export const Filters: React.FC<IFiltersProps> = ({ className }) => {
   const { ingredients, loading } = useIngredients();
   const filters = useFilters();
 
-  const [priceRange, setPriceRange] = useState<IPriceRange>({
-    priceFrom: 0,
-    priceTo: 2000,
-  });
   const items = ingredients.map((item) => ({
     text: item.name,
     value: String(item.id),
   }));
+
+  const updatePrices = (prices: number[]) => {
+    console.log(prices, 999);
+    filters.setPrices('priceFrom', prices[0]);
+    filters.setPrices('priceTo', prices[1]);
+  };
 
   return (
     <div className={cn('', className)}>
@@ -68,12 +70,9 @@ export const Filters: React.FC<IFiltersProps> = ({ className }) => {
             placeholder="от"
             min={0}
             max={2000}
-            value={String(priceRange.priceFrom)}
+            value={String(filters.prices.priceFrom)}
             onChange={(e) =>
-              setPriceRange({
-                ...priceRange,
-                priceFrom: Number(e.target.value),
-              })
+              filters.setPrices('priceFrom', Number(e.target.value))
             }
           />
           <Input
@@ -81,12 +80,9 @@ export const Filters: React.FC<IFiltersProps> = ({ className }) => {
             type="number"
             min={100}
             max={2000}
-            value={String(priceRange.priceTo)}
+            value={String(filters.prices.priceTo)}
             onChange={(e) =>
-              setPriceRange({
-                ...priceRange,
-                priceTo: Number(e.target.value),
-              })
+              filters.setPrices('priceTo', Number(e.target.value))
             }
           />
         </div>
@@ -95,10 +91,11 @@ export const Filters: React.FC<IFiltersProps> = ({ className }) => {
           min={0}
           max={2000}
           step={10}
-          value={[priceRange.priceFrom, priceRange.priceTo]}
-          onValueChange={([priceFrom, priceTo]) =>
-            setPriceRange({ priceFrom, priceTo })
-          }
+          value={[
+            filters.prices.priceFrom || 0,
+            filters.prices.priceTo || 2000,
+          ]}
+          onValueChange={updatePrices}
         />
       </div>
 
