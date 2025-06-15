@@ -22,7 +22,6 @@ export const Filters: React.FC<IFiltersProps> = ({ className }) => {
   }));
 
   const updatePrices = (prices: number[]) => {
-    console.log(prices, 999);
     filters.setPrices('priceFrom', prices[0]);
     filters.setPrices('priceTo', prices[1]);
   };
@@ -62,7 +61,7 @@ export const Filters: React.FC<IFiltersProps> = ({ className }) => {
         <div className="flex gap-3 mb-5">
           <Input
             type="number"
-            placeholder="от"
+            placeholder="от 0"
             min={0}
             max={2000}
             value={String(filters.prices.priceFrom)}
@@ -71,7 +70,7 @@ export const Filters: React.FC<IFiltersProps> = ({ className }) => {
             }
           />
           <Input
-            placeholder="2000"
+            placeholder="до 2000"
             type="number"
             min={100}
             max={2000}

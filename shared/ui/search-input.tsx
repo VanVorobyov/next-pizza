@@ -69,6 +69,7 @@ export const SearchInput: React.FC<ISearchInputProps> = React.memo(
                   className="flex items-center gap-3 w-full px-3 py-2 hover:bg-primary/10"
                   href={`/product/${product.id}`}
                   onClick={handleClickItem}
+                  key={product.id}
                 >
                   <img
                     className="rounded-sm h-8 w-8"
