@@ -1,15 +1,13 @@
 import React from 'react';
 
 interface IProductPageProps {
-  className?: string;
   params: {
     id: string;
   };
 }
 
-export default function ProductPage({
-  className,
-  params = { id: '' },
-}: IProductPageProps) {
-  return <div className={className}>Product {params.id}</div>;
-}
+const ProductPage: React.FC<IProductPageProps> = ({ params }) => {
+  return <div>Product {params.id}</div>;
+};
+
+export default ProductPage;

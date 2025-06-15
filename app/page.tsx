@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Container, Title } from '@/shared/ui';
 import { TopBar } from '@/widgets';
 import { Filters } from '@/widgets/filters';
@@ -77,7 +77,9 @@ const Home: React.FC = () => {
         <div className="flex gap-[60px]">
           {/* left side of content (filters) */}
           <div className="w-[250px]">
-            <Filters />
+            <Suspense fallback={<div>Loading...</div>}>
+              <Filters />
+            </Suspense>
           </div>
 
           {/* right side of content (pizzas) */}
