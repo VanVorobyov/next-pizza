@@ -9,7 +9,7 @@ import { useCategoryStore } from '@/shared/store/category';
 
 interface Props {
   title: string;
-  items: IProduct[];
+  items: any[];
   categoryId: number;
   className?: string;
   listClassName?: string;
@@ -42,6 +42,8 @@ export const ProductsGroupList: React.FC<Props> = ({
     }
   }, [categoryId, intersection?.isIntersecting]);
 
+  console.log(items);
+
   return (
     <div className={className} id={title} ref={intersectionRef}>
       <Title text={title} size="lg" className="font-extrabold mb-5" />
@@ -52,8 +54,8 @@ export const ProductsGroupList: React.FC<Props> = ({
             id={product.id}
             title={product.name}
             imageUrl={product.imageUrl}
-            price={product.items[0].price}
-            ingredients={[]}
+            price={0}
+            ingredients={product.ingredients}
           />
         ))}
       </div>
